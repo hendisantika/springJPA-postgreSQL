@@ -1,12 +1,16 @@
 package com.springjpa.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springjpa.model.Customer;
 import com.springjpa.repo.CustomerRepository;
+
+import java.util.Date;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : springJPA-postgreSQL
@@ -21,6 +25,11 @@ import com.springjpa.repo.CustomerRepository;
 public class WebController {
 	@Autowired
 	CustomerRepository repository;
+
+	@GetMapping("/")
+	String index(){
+		return "Spring JPA PostgreSQL Example. \n Waktu saat ini : " + new Date();
+	}
 	
 	@RequestMapping("/save")
 	public String process(){
