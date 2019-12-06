@@ -1,13 +1,12 @@
 package com.springjpa.controller;
 
+import com.springjpa.model.Customer;
+import com.springjpa.repo.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.springjpa.model.Customer;
-import com.springjpa.repo.CustomerRepository;
 
 import java.util.Date;
 
@@ -63,9 +62,9 @@ public class WebController {
 	}
 	
 	@RequestMapping("/findById")
-	public String findById(@RequestParam("id") long id){
+	public String findById(@RequestParam("id") long id) {
 		String result = "";
-		result = repository.findOne(id).toString();
+		result = repository.findById(id).toString();
 		return result;
 	}
 	
