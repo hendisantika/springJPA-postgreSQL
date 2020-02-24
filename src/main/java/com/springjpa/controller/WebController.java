@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by IntelliJ IDEA.
@@ -55,21 +57,15 @@ public class WebController {
 	}
 
 	@GetMapping("/findById")
-	public String findById(@RequestParam("id") long id) {
-		String result = "";
-		result = repository.findById(id).toString();
-		return result;
+	public Customer findById(@RequestParam("id") long id) {
+		Optional<Customer> resultOpt = repository.findById(id);
+		Customer customer = resultOpt.get();
+		return customer;
 	}
 
 	@GetMapping("/findByLastname")
-	public String fetchDataByLastName(@RequestParam("lastname") String lastName) {
-		String result = "<html>";
-
-		for (Customer cust : repository.findByLastName(lastName)) {
-			result += "<div>" + cust.toString() + "</div>";
-		}
-
-		return result + "</html>";
+	public List<Customer> fetchDataByLastName(@RequestParam("lastname") String lastName) {
+		return repository.findByLastName(lastName);
 	}
 }
 
