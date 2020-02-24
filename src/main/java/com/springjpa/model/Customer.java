@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.io.Serializable;
 /**
  * Created by IntelliJ IDEA.
  * Project : springJPA-postgreSQL
@@ -26,9 +25,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Customer implements Serializable {
-
-	private static final long serialVersionUID = -3009157732242241606L;
+public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
@@ -38,4 +35,9 @@ public class Customer implements Serializable {
 
 	@Column(name = "lastname")
 	private String lastName;
+
+	public Customer(String firstName, String lastName) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
 }

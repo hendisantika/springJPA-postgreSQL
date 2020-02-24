@@ -4,7 +4,6 @@ import com.springjpa.model.Customer;
 import com.springjpa.repo.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,15 +22,15 @@ import java.util.Date;
 @RestController
 public class WebController {
 	@Autowired
-	CustomerRepository repository;
+	private CustomerRepository repository;
 
 	@GetMapping("/")
-	String index(){
-		return "Spring JPA PostgreSQL Example. \n Waktu saat ini : " + new Date();
+	public String index() {
+		return "Spring JPA PostgreSQL Example.<br>Waktu saat ini : " + new Date();
 	}
-	
-	@RequestMapping("/save")
-	public String process(){
+
+	@GetMapping("/save")
+	public String process() {
 		repository.save(new Customer("Hendi", "Santika"));
 		repository.save(new Customer("Uzumaki", "Naruto"));
 		repository.save(new Customer("Uchiha", "Sasuke"));
@@ -48,34 +47,28 @@ public class WebController {
 		repository.save(new Customer("Sarutobi", "Hiruzen"));
 		return "Done";
 	}
-	
-	
-	@RequestMapping("/findAll")
-	public String findAll(){
-		String result = "<html>";
-		
-		for(Customer cust : repository.findAll()){
-			result += "<div>" + cust.toString() + "</div>";
-		}
-		
-		return result + "</html>";
+
+
+	@GetMapping("/findAll")
+	public Iterable<Customer> findAll() {
+		return repository.findAll();
 	}
-	
-	@RequestMapping("/findById")
+
+	@GetMapping("/findById")
 	public String findById(@RequestParam("id") long id) {
 		String result = "";
 		result = repository.findById(id).toString();
 		return result;
 	}
-	
-	@RequestMapping("/findByLastname")
-	public String fetchDataByLastName(@RequestParam("lastname") String lastName){
+
+	@GetMapping("/findByLastname")
+	public String fetchDataByLastName(@RequestParam("lastname") String lastName) {
 		String result = "<html>";
-		
-		for(Customer cust: repository.findByLastName(lastName)){
-			result += "<div>" + cust.toString() + "</div>"; 
+
+		for (Customer cust : repository.findByLastName(lastName)) {
+			result += "<div>" + cust.toString() + "</div>";
 		}
-		
+
 		return result + "</html>";
 	}
 }
