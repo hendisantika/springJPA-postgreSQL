@@ -2,7 +2,8 @@ package com.springjpa.controller;
 
 import com.springjpa.model.Customer;
 import com.springjpa.repo.CustomerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,10 +22,11 @@ import java.util.Optional;
  * Time: 05.53
  * To change this template use File | Settings | File Templates.
  */
+@Slf4j
 @RestController
+@RequiredArgsConstructor
 public class WebController {
-	@Autowired
-	private CustomerRepository repository;
+	private final CustomerRepository customerRepository;
 
 	@GetMapping("/")
 	public String index() {
@@ -33,39 +35,39 @@ public class WebController {
 
 	@GetMapping("/save")
 	public String process() {
-		repository.save(new Customer("Hendi", "Santika"));
-		repository.save(new Customer("Uzumaki", "Naruto"));
-		repository.save(new Customer("Uchiha", "Sasuke"));
-		repository.save(new Customer("Sakura", "Haruno"));
-		repository.save(new Customer("Hatake", "Kakashi"));
-		repository.save(new Customer("Naara", "Shikamaru"));
-		repository.save(new Customer("Aburame", "Shino"));
-		repository.save(new Customer("Hyuuga", "Neji"));
-		repository.save(new Customer("Hyuuga", "Hinata"));
-		repository.save(new Customer("Yamanaka", "Ino"));
-		repository.save(new Customer("Akimichi", "Choji"));
-		repository.save(new Customer("Inuzuka", "Kiba"));
-		repository.save(new Customer("Rock", "Lee"));
-		repository.save(new Customer("Sarutobi", "Hiruzen"));
+		customerRepository.save(new Customer("Hendi", "Santika"));
+		customerRepository.save(new Customer("Uzumaki", "Naruto"));
+		customerRepository.save(new Customer("Uchiha", "Sasuke"));
+		customerRepository.save(new Customer("Sakura", "Haruno"));
+		customerRepository.save(new Customer("Hatake", "Kakashi"));
+		customerRepository.save(new Customer("Naara", "Shikamaru"));
+		customerRepository.save(new Customer("Aburame", "Shino"));
+		customerRepository.save(new Customer("Hyuuga", "Neji"));
+		customerRepository.save(new Customer("Hyuuga", "Hinata"));
+		customerRepository.save(new Customer("Yamanaka", "Ino"));
+		customerRepository.save(new Customer("Akimichi", "Choji"));
+		customerRepository.save(new Customer("Inuzuka", "Kiba"));
+		customerRepository.save(new Customer("Rock", "Lee"));
+		customerRepository.save(new Customer("Sarutobi", "Hiruzen"));
 		return "Done";
 	}
 
 
 	@GetMapping("/findAll")
 	public Iterable<Customer> findAll() {
-		return repository.findAll();
+		return customerRepository.findAll();
 	}
 
 	@GetMapping("/findById")
 	public Customer findById(@RequestParam("id") long id) {
-		Optional<Customer> resultOpt = repository.findById(id);
+		Optional<Customer> resultOpt = customerRepository.findById(id);
 		Customer customer = resultOpt.get();
 		return customer;
 	}
 
 	@GetMapping("/findByLastname")
 	public List<Customer> fetchDataByLastName(@RequestParam("lastname") String lastName) {
-		return repository.findByLastName(lastName);
+		return customerRepository.findByLastName(lastName);
 	}
 }
 
