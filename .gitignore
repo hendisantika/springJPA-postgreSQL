@@ -2,3 +2,4 @@
 .idea/
 springJPA-postgreSQL.iml
 target/
+logs
